@@ -1,0 +1,177 @@
+-- 내장 함수(embeded function)
+-- 오라클에서 만들어져 있는 함수
+
+-- 문자 함수 : 문자열 처리에 사용되는 함수
+
+-- UPPER : 대문자로 변환
+SELECT FIRST_NAME, UPPER(FIRST_NAME) FROM EMPLOYEES;
+
+-- LOWER : 대문자로 변환
+SELECT FIRST_NAME, LOWER(FIRST_NAME) FROM EMPLOYEES;
+
+-- INITCAP : 첫 글자만 대문자로 변환
+SELECT FIRST_NAME , INITCAP(FIRST_NAME) FROM EMPLOYEES;
+
+-- LENGTH : 문자열의 길이
+SELECT FIRST_NAME , LENGTH(FIRST_NAME) FROM EMPLOYEES;
+SELECT LENGTH('안녕하세요') FROM DUAL; -- 한글 하나도 한 문자
+
+-- SUBSTR(전체문자열, 시작인덱스) : 시작인덱스부터 끝까지 부분 문자열(인덱스 1부터 시작)
+SELECT SUBSTR('ABCDEFG', 3) FROM DUAL;
+SELECT SUBSTR('ABCDEFG', 3, 3) FROM DUAL; -- 3부터 3개
+
+-- INSTR(전체문자열, 부분문자열) : 전체문자열에서 부분문자열이 시작되는 곳의 인덱스 반환
+SELECT INSTR('ABCDEFG', 'CD') FROM DUAL;
+SELECT INSTR('ABCDEFG', 'XY') FROM DUAL; -- 없는 문자열일 경우 0
+
+-- REPLACE(전체문자열, 원래문자열, 변경문자열)
+SELECT REPLACE('ABCDEFG', 'AB', 'XY') FROM DUAL;
+
+-- LPAD : 왼쪽 공백을 특정 문자로 채우기 (기본은 공백문자)
+SELECT LPAD('ABCDE', 10) FROM DUAL; -- 전체 10자리, 앞 5문자는 공백문자
+SELECT LPAD('ABCDE', 10, '*') FROM DUAL; -- 전체 10자리, 앞 5문자는 *문자
+
+-- RPAD : 오른쪽 공백을 특정 문자로 채우기 (기본은 공백문자)
+SELECT RPAD('ABCDE', 10) FROM DUAL; -- 전체 10자리, 뒤 5문자는 공백문자
+SELECT RPAD('ABCDE', 10, '*') FROM DUAL; -- 전체 10자리, 뒤 5문자는 *문자
+
+-- CONCAT : 문자열 접합
+SELECT CONCAT('ABC', 'DEF') FROM DUAL;
+SELECT 'ABC'||'DEF' FROM DUAL;
+
+-- TRIM : 양쪽 공백문자를 제거
+SELECT TRIM('   ABC   ') FROM DUAL;
+SELECT LENGTH(TRIM('   ABC   ')) FROM DUAL;
+
+-- LTRIM : 왼쪽 공백문자를 제거
+SELECT LTRIM('   ABC   ') FROM DUAL;
+SELECT LENGTH(LTRIM('   ABC   ')) FROM DUAL;
+
+-- RRIM : 오른쪽 공백문자를 제거
+SELECT RTRIM('   ABC   ') FROM DUAL;
+SELECT LENGTH(RTRIM('   ABC   ')) FROM DUAL;
+
+-- 숫자 함수
+
+-- ROUND : 반올림
+SELECT ROUND(3.141592) FROM DUAL; -- 소수점 첫째자리 반올림
+SELECT ROUND(3.141592, 2) FROM DUAL; -- 소수점 셋째자리 반올림
+
+
+-- TRUNC : 절삭
+SELECT TRUNC(3.141592) FROM DUAL; -- 소수점 첫째자리 버림
+SELECT TRUNC(3.141592, 2) FROM DUAL; -- 소수점 셋째자리 버림
+
+-- CEIL : 천장값 (주어진 수보다는 크지만 가장 작은 정수)
+SELECT CEIL(3.14) FROM DUAL;
+
+-- FLOOR : 바닥값 (주어진 수보다는 작지만 가장 큰 정수)
+SELECT FLOOR(3.14) FROM DUAL;
+
+-- MOD : 나머지
+SELECT MOD(7, 3) FROM DUAL;
+
+-- EXP : E의 몇 승
+SELECT EXP(3) FROM DUAL;
+
+-- LN : 자연로그
+SELECT LN(3) FROM DUAL;
+
+-- POWER : 거듭제곱
+SELECT POWER(2, 3) FROM DUAL;
+
+-- SQRT : 루트
+SELECT SQRT(3) FROM DUAL;
+
+-- 날짜 함수
+ 
+-- SYSDATE : 오라클이 제공하는 현재 시스템의 날짜와 시간
+SELECT SYSDATE FROM DUAL;
+
+-- ADD_MONTHS : 몇 개월 전(-), 후(+)
+SELECT ADD_MONTHS(SYSDATE, 4) FROM DUAL; -- 4개월 후
+SELECT ADD_MONTHS(SYSDATE, -4) FROM DUAL; -- 4개월 전
+
+-- MONTHS_BETWEEN : 두 날짜데이터간의 개월 차 (뒷 날짜 기준)
+SELECT MONTHS_BETWEEN(SYSDATE, '2028-12-08') FROM DUAL; -- -41개월
+SELECT MONTHS_BETWEEN('2028-12-08', SYSDATE) FROM DUAL; -- 41개월
+
+-- LAST_DAY : 해당 월의 마지막 날짜
+SELECT LAST_DAY(SYSDATE) FROM DUAL;
+SELECT LAST_DAY(ADD_MONTHS(SYSDATE, 4)) FROM DUAL;
+
+-- NEXT_DAY : 해당 시점 기준 가장 가까운 요일
+SELECT NEXT_DAY(SYSDATE, '일') FROM DUAL;
+SELECT NEXT_DAY(SYSDATE, '금요일') FROM DUAL;
+
+-- 날짜 더하기/빼기
+SELECT SYSDATE + 10 FROM DUAL;
+SELECT SYSDATE - 10 FROM DUAL;
+SELECT TO_DATE('2020-10-01') + 10 FROM DUAL;
+SELECT TO_DATE('2020-10-01') - 10 FROM DUAL;
+
+-- ROUND : 날짜 반올림 (2025년 7월 8일 오전 10시 33분 기준)
+SELECT ROUND(SYSDATE) FROM DUAL; -- 오늘 0시
+SELECT ROUND(SYSDATE, 'YYYY') FROM DUAL; -- 내년 1월 1일
+SELECT ROUND(SYSDATE, 'MM') FROM DUAL; -- 이번달 1일
+SELECT ROUND(SYSDATE, 'DDD') FROM DUAL; -- 오늘 0시
+SELECT ROUND(SYSDATE, 'HH') FROM DUAL; -- 오늘 오전 11시
+SELECT ROUND(SYSDATE, 'MI') FROM DUAL; -- 오늘 오전 10시 34분
+
+-- TRUNC : 날짜 버림
+SELECT TRUNC(SYSDATE) FROM DUAL; -- 오늘 0시
+SELECT TRUNC(SYSDATE, 'YYYY') FROM DUAL; -- 올해 1월 1일
+SELECT TRUNC(SYSDATE, 'MM') FROM DUAL; -- 이번달 1일
+SELECT TRUNC(SYSDATE, 'DDD') FROM DUAL; -- 오늘 0시
+SELECT TRUNC(SYSDATE, 'HH') FROM DUAL; -- 오늘 오전 10시
+SELECT TRUNC(SYSDATE, 'MI') FROM DUAL; -- 오늘 오전 10시 33분
+
+-- 형변환 함수
+
+-- TO_CHAR : 문자타입을 변환
+SELECT TO_CHAR(SYSDATE), SYSDATE FROM DUAL; -- 25/07/08
+SELECT TO_CHAR(100) FROM DUAL; -- 100 문자열
+SELECT 100||'원' FROM DUAL; -- 100원 문자열
+SELECT 100||100 FROM DUAL; -- 100100 문자열
+
+-- TO_NUMBER : 숫자타입으로 변환
+SELECT TO_NUMBER('100') FROM DUAL; -- 숫자 100
+-- SELECT TO_NUMBER('백') FROM DUAL; -- 에러
+
+-- TO_DATE : 날짜타입으로 변환
+SELECT TO_DATE('2025-07-08') FROM DUAL;
+SELECT TO_DATE('25-07-08') FROM DUAL;
+SELECT TO_DATE('2025.07.08') FROM DUAL;
+SELECT TO_DATE('25.07.08') FROM DUAL;
+SELECT TO_DATE('2025/07/08') FROM DUAL;
+SELECT TO_DATE('25/07/08') FROM DUAL;
+-- SELECT TO_DATE('2025년 7월 8일') FROM DUAL;
+
+-- NULL 처리 함수
+
+-- NVL : 널 값을 다른 값으로 대체
+SELECT NVL(NULL, '데이터없음') FROM DUAL;
+SELECT NVL(TO_CHAR(MANAGER_ID), '매니저없음') FROM DEPARTMENTS;
+
+-- NVL2 : 널 값을 다른 값으로 대체
+SELECT NVL2(NULL, '데이터있음', '데이터없음') FROM DUAL;
+SELECT NVL2(TO_CHAR(MANAGER_ID), '매니저있음', '매니저없음') FROM DEPARTMENTS;
+
+-- 기타 함수
+
+-- DECODE : 컬럼의 값에 따라 다른 값을 반환
+SELECT DEPARTMENT_ID, NVL(
+	DECODE(DEPARTMENT_ID, 10, '뉴욕', 20, '델라스', 30, '시카고'),
+	'정보없음'
+)
+FROM EMPLOYEES;
+
+-- CASE ~ WHEN ~ THEN ~ ELSE ~ END
+SELECT DEPARTMENT_ID,
+	CASE WHEN DEPARTMENT_ID=10 THEN '뉴욕'
+		 WHEN DEPARTMENT_ID=20 THEN '델라스'
+		 WHEN DEPARTMENT_ID=30 THEN '시카고'
+	ELSE '정보없음'
+	END
+FROM EMPLOYEES;
+
