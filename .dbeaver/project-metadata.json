@@ -1,0 +1,1 @@
+{"resources":{"sql/NETFLIX-KMK-실습.sql":{"default-schema":"KMK","default-datasource":"oracle_thin-197ea150093-50aa6fcbb16be2c9"},"sql/그룹핑-HR-실습.sql":{"default-schema":"HR","default-datasource":"oracle_thin-197ea342abc-53a4b82f9fb0933e"},"sql/조인서브쿼리-HR-실습.sql":{"default-datasource":"oracle_thin-197ea342abc-53a4b82f9fb0933e","default-schema":"HR"}}}
