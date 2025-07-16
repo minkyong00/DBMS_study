@@ -1,0 +1,73 @@
+-- 롤과권한-SYSTEM.sql
+
+/*
+PRIVILEGE (권한)
+ROLL (롤) : 권한의 집합
+*/
+
+
+-- 데이터 사전 목록 조회
+SELECT * FROM DICT;
+--WHERE TABLE_NAME LIKE 'USER_PR%';
+
+-- KMK 사용자에게 뷰를 생성할 수 있는 권한을 부여
+GRANT CREATE VIEW TO KMK;
+
+-- KMK 사용자에게 뷰 생성권한을 제거
+REVOKE CREATE VIEW FROM KMK;
+
+-- 사용자 생성
+CREATE USER PR IDENTIFIED BY PR; -- PR/PR 사용자 생성
+
+-- 사용자에게 기본 롤(CONNECT, REQOURCE) 부여
+GRANT CONNECT, RESOURCE TO PR;
+
+-- 롤을 생성
+CREATE ROLE PRROLL;
+
+-- 롤에 권한을 부여
+-- KMK 소유의 T1 테이블에 SELECT, INSERT, UPDATE, DELETE하는 권한을 PRROLL에 부여
+GRANT SELECT, INSERT, UPDATE, DELETE ON KMK.T1 TO PRROLL;
+
+-- 롤을 사용자에게 부여
+GRANT PRROLL TO PR;
+
+-- 롤에서 권한 삭제
+REVOKE INSERT, UPDATE, DELETE ON KMK.T1 FROM PRROLL;
+
+-- 롤 삭제
+DROP ROLE PRROLL;
+
+-- 사용자가 가진 롤 조회
+SELECT * FROM USER_ROLE_PRIVS;
+
+GRANT CREATE VIEW TO KMK;
+CREATE USER SCORE IDENTIFIED BY SCORE;
+GRANT CONNECT, RESOURCE TO SCORE;
+GRANT SELECT ON KMK.VW_SCORE TO SCORE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
