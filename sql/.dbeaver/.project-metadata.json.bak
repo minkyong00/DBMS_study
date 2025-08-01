@@ -1,1 +1,1 @@
-{"resources":{"트리거-KMK-실습.sql":{"default-datasource":"oracle_thin-197ed6a6757-3cfd5ff5e3fa559d"}}}
+{"resources":{"잡\u0026스케줄러-KMK.sql":{"default-datasource":"oracle_thin-197ed6a6757-3cfd5ff5e3fa559d"},"트리거-KMK-실습.sql":{"default-schema":"KMK","default-datasource":"oracle_thin-197ed6a6757-3cfd5ff5e3fa559d"}}}
